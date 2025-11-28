@@ -1,0 +1,435 @@
+import React, { useState, useMemo } from 'react';
+import { BookOpen, CheckCircle, XCircle, AlertTriangle, ArrowRight, RefreshCw, ChevronDown, ChevronUp, Lightbulb, GraduationCap } from 'lucide-react';
+
+// --- データ定義 (提供された資料に基づく) ---
+
+const QUESTIONS_DATA = [
+  {
+    id: 1,
+    title: "弥生時代の遺跡・遺物",
+    source: "12 追試",
+    category: "古代",
+    questionText: "弥生時代の遺跡や遺物には戦争とのかかわりを示すものが見られるが，そのことに関して述べた文として正しいものを，次の①～④のうちから一つ選べ。",
+    options: [
+      {
+        id: 1,
+        text: "北陸から東北にかけての沿岸部に，朝鮮式山城が築かれた。",
+        isCorrect: false,
+        explanation: "朝鮮式山城（大野城・基肄城など）が築かれたのは、弥生時代ではなく飛鳥時代（7世紀後半）です。白村江の戦い（663年）での敗北後、唐・新羅の侵攻に備えて西日本（主に九州北部から瀬戸内海沿岸）に築かれました。",
+        correction: "「飛鳥時代」に、「西日本（九州北部など）」に築かれた。",
+        relatedInfo: "【関連知識】弥生時代の防御施設としては、高地性集落（逃げ込み用）が代表的です。"
+      },
+      {
+        id: 2,
+        text: "石鏃（せきぞく）は，弥生時代以後，武器として用いられなかった。",
+        isCorrect: false,
+        explanation: "石鏃（石の矢じり）は、金属器が伝来した後も、弥生時代を通じて武器として広く使用され続けました。",
+        correction: "弥生時代を通じて「武器として用いられた」。",
+        relatedInfo: "【関連知識】金属器（鉄・青銅）は貴重だったため、実用的な道具や武器には依然として石器が使われていました。"
+      },
+      {
+        id: 3,
+        text: "周囲に濠（ほり）や土塁をめぐらす集落が現れた。",
+        isCorrect: true,
+        explanation: "正しい記述です。戦乱に備え、集落の周囲に深い濠や土塁をめぐらせた「環濠集落」が出現しました。佐賀県の吉野ヶ里遺跡や奈良県の唐古・鍵遺跡が代表例です。",
+        correction: null, // 正解なので修正なし
+        relatedInfo: "【重要用語】環濠集落（防御的集落）。これに対し、山頂や丘陵上に築かれた軍事的な集落を「高地性集落」と呼びます（紫雲出山遺跡など）。"
+      },
+      {
+        id: 4,
+        text: "銅剣・銅矛・銅戈は，中国や朝鮮では本来，祭器として製作された。",
+        isCorrect: false,
+        explanation: "青銅製武器（銅剣・銅矛など）は、中国や朝鮮半島では本来「実用的な武器」として使用されていました。日本に伝来した後、大型化・平薄化して「祭器（祭りの道具）」へと変化しました。",
+        correction: "中国や朝鮮では本来「実用武器」として製作された（日本で祭器化した）。",
+        relatedInfo: " 【文化の広がり】銅鐸は近畿地方中心、銅剣・銅矛は九州北部中心、銅剣は瀬戸内中心に分布しました。"
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "鎌倉時代の経済",
+    source: "09 追試",
+    category: "中世",
+    questionText: "鎌倉時代の社会や経済の動向について述べた文として正しいものを，次の①～④のうちから一つ選べ。",
+    options: [
+      {
+        id: 1,
+        text: "鎌倉幕府は，貨幣を入手するために元に天龍寺船を送った。",
+        isCorrect: false,
+        explanation: "天龍寺船は、室町時代に足利尊氏が後醍醐天皇の冥福を祈る天龍寺の造営費を得るために、元へ派遣した貿易船です。",
+        correction: "「室町幕府（足利尊氏）」が天龍寺船を送った。",
+        relatedInfo: "【対比】鎌倉時代の日宋貿易では、平清盛などが宋銭を大量に輸入しました。"
+      },
+      {
+        id: 2,
+        text: "遠隔地の取引を決済するために，為替が用いられるようになった。",
+        isCorrect: true,
+        explanation: "正しい記述です。銭貨の輸送の手間や盗難のリスクを避けるため、遠隔地間の取引決済に「為替（割符）」が利用されるようになりました。",
+        correction: null,
+        relatedInfo: "【重要用語】為替（かわせ）：現金輸送に代わる信用取引手段。問丸などが仲介役を果たしました。"
+      },
+      {
+        id: 3,
+        text: "農民は徳政を要求して，しばしば幕府への大規模な実力行使を起こした。",
+        isCorrect: false,
+        explanation: "農民が徳政（借金帳消し）を求めて大規模な実力行使（土一揆）を起こしたのは、主に「室町時代」です（例：正長の土一揆）。鎌倉時代の徳政令（永仁の徳政令）は、御家人を救済するためのもので、農民の要求によるものではありません。",
+        correction: "「室町時代」に、農民は徳政を要求して実力行使（土一揆）を起こした。",
+        relatedInfo: "【時代区分】鎌倉＝御家人の困窮、室町＝惣村の発達と土一揆。"
+      },
+      {
+        id: 4,
+        text: "鎌倉幕府は，しばしば撰銭令を出して貨幣の流通を統制しようとした。",
+        isCorrect: false,
+        explanation: "撰銭令（えりぜにれい：悪銭を嫌い良銭を求める行為の禁止）を頻繁に出したのは、「室町幕府」や戦国大名です。",
+        correction: "「室町幕府」は，しばしば撰銭令を出した。",
+        relatedInfo: "【貨幣史】室町時代後半には明銭（永楽通宝など）と共に私鋳銭（粗悪な貨幣）が出回り、撰銭が横行しました。"
+      }
+    ]
+  },
+  {
+    id: 16,
+    title: "綿糸の生産と輸出入（明治時代）",
+    source: "10 追試",
+    category: "近現代",
+    questionText: "紡績業に関して述べた文a～dについて，正しいものの組合せを選べ。",
+    subText: "a: 松方財政の開始以前から，綿糸の生産高が輸入高を上回っていた。\nb: 日清戦争ののち数年間，戦争以前に比べて綿糸の輸出高が急増した。\nc: 日露戦争ののち，綿糸の生産高は増加傾向にあった。\nd: 関税自主権の完全回復にともない，綿糸の輸出高が輸入高を上回るようになった。",
+    options: [
+      { id: 1, text: "a・c", isCorrect: false, explanation: "aが誤りです。", correction: "解説を参照", relatedInfo: "" },
+      { id: 2, text: "a・d", isCorrect: false, explanation: "両方誤りです。", correction: "解説を参照", relatedInfo: "" },
+      { id: 3, text: "b・c", isCorrect: true, explanation: "bとcが正しい記述です。", correction: null, relatedInfo: "" },
+      { id: 4, text: "b・d", isCorrect: false, explanation: "dが誤りです。", correction: "解説を参照", relatedInfo: "" }
+    ],
+    detailedBreakdown: [
+      {
+        label: "文 a",
+        status: "incorrect",
+        text: "松方財政の開始以前から，綿糸の生産高が輸入高を上回っていた。",
+        explanation: "松方財政以前（1880年代初頭）は、まだ機械制紡績が未発達で、輸入綿糸が国内生産を圧倒していました。",
+        correction: "松方財政以前は「輸入高が生産高を上回っていた」。生産が輸入を上回るのは1890年です。",
+        relatedInfo: " 1883年の大阪紡績会社の開業が転機となり、1890年に生産量が輸入量を上回りました。"
+      },
+      {
+        label: "文 b",
+        status: "correct",
+        text: "日清戦争ののち数年間，戦争以前に比べて綿糸の輸出高が急増した。",
+        explanation: "日清戦争（1894-95）後、中国（清）市場への輸出が拡大し、輸出高が急増しました。1897年には輸出が輸入を上回っています。",
+        correction: null,
+        relatedInfo: "【産業革命】紡績業は日本の産業革命の最初の牽引役です（第1次産業革命＝軽工業）。"
+      },
+      {
+        label: "文 c",
+        status: "correct",
+        text: "日露戦争ののち，綿糸の生産高は増加傾向にあった。",
+        explanation: "日露戦争（1904-05）後も、紡績業は成長を続け、生産高は増加傾向にありました。",
+        correction: null,
+        relatedInfo: ""
+      },
+      {
+        label: "文 d",
+        status: "incorrect",
+        text: "関税自主権の完全回復にともない，綿糸の輸出高が輸入高を上回るようになった。",
+        explanation: "綿糸の輸出が輸入を上回ったのは「1897年」です。関税自主権の完全回復（1911年・小村寿太郎）よりもずっと前です。",
+        correction: "関税自主権回復より「以前（1897年頃）」に輸出が輸入を上回った。",
+        relatedInfo: "【年代暗記】1890年：生産＞輸入、1897年：輸出＞輸入。"
+      }
+    ]
+  },
+  {
+    id: 17,
+    title: "1910年代の工業の発展（大正時代）",
+    source: "オリジナル・改題",
+    category: "近現代",
+    questionText: "第一次世界大戦による好景気に関連して，1910年代の工業について述べた文として正しいものを選べ。",
+    options: [
+      {
+        id: 1,
+        text: "猪苗代水力発電所から東京への長距離送電が成功した。",
+        isCorrect: true,
+        explanation: "正しい記述です。1914年（大正3年）に猪苗代水力発電所が完成し、東京への長距離高圧送電が成功しました。これが動力革命（蒸気力から電力へ）を加速させました。",
+        correction: null,
+        relatedInfo: "【動力革命】大戦景気期に原動機における電動機の比率が蒸気機関を上回りました。"
+      },
+      {
+        id: 2,
+        text: "重化学工業の生産額が，軽工業の生産額を上回った。",
+        isCorrect: false,
+        explanation: "重化学工業の生産額が軽工業を上回るのは、1930年代（昭和初期）の軍需産業化が進んでからです。1910年代はまだ繊維工業などの軽工業が中心でした。",
+        correction: "「1930年代（昭和初期）」に入ってから上回った。",
+        relatedInfo: "【産業構造の変化】1910年代は「工業生産額が農業生産額を上回った（1918年頃）」時期です。"
+      },
+      {
+        id: 3,
+        text: "官営八幡製鉄所が設立され，操業を開始した。",
+        isCorrect: false,
+        explanation: "官営八幡製鉄所の操業開始は「1901年」です。1910年代ではありません。日清戦争の賠償金を元手に設立されました。",
+        correction: "「1901年（明治30年代）」に操業を開始した。",
+        relatedInfo: "【鉄鋼業】1910年代の大戦景気では、民間の製鉄所なども発展しましたが、八幡製鉄所の開始はそれ以前です。"
+      },
+      {
+        id: 4,
+        text: "綿糸の生産高が輸入高を初めて上回った。",
+        isCorrect: false,
+        explanation: "綿糸の生産高が輸入高を上回ったのは「1890年」です。1910年代はすでに世界有数の綿糸輸出国となっていました。",
+        correction: "「1890年（明治中期）」に上回った。",
+        relatedInfo: "【綿業の推移】1910年代は、第一次世界大戦によりヨーロッパ列強がアジア市場から後退したため、日本が輸出を独占的に拡大した時期です。"
+      }
+    ]
+  }
+];
+
+// --- コンポーネント ---
+
+const ExplanationCard = ({ label, status, text, explanation, correction, relatedInfo }) => {
+  const isCorrect = status === 'correct';
+  
+  return (
+    <div className={`mb-4 p-4 rounded-lg border-l-4 ${isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
+      <div className="flex items-start justify-between mb-2">
+        <div className="flex items-center gap-2">
+          {isCorrect ? (
+            <CheckCircle className="w-5 h-5 text-green-600" />
+          ) : (
+            <XCircle className="w-5 h-5 text-red-600" />
+          )}
+          <span className="font-bold text-gray-800">{label || "選択肢"}</span>
+        </div>
+        <span className={`text-xs px-2 py-1 rounded font-bold ${isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+          {isCorrect ? "正文" : "誤文"}
+        </span>
+      </div>
+
+      <p className="text-gray-700 mb-3 font-medium border-b border-gray-200 pb-2">
+        {text}
+      </p>
+
+      <div className="space-y-3">
+        {/* 解説 */}
+        <div>
+          <h4 className="flex items-center text-sm font-bold text-gray-600 mb-1">
+            <BookOpen className="w-4 h-4 mr-1" /> 解説
+          </h4>
+          <p className="text-sm text-gray-700 leading-relaxed pl-5">
+            {explanation}
+          </p>
+        </div>
+
+        {/* 修正ポイント（誤文の場合のみ） */}
+        {!isCorrect && correction && (
+          <div>
+            <h4 className="flex items-center text-sm font-bold text-blue-600 mb-1">
+              <RefreshCw className="w-4 h-4 mr-1" /> 正解にするための修正
+            </h4>
+            <div className="text-sm bg-white p-2 rounded border border-blue-100 text-blue-800 font-medium pl-5 shadow-sm">
+              <ArrowRight className="inline w-3 h-3 mr-1" />
+              {correction}
+            </div>
+          </div>
+        )}
+
+        {/* 関連知識 */}
+        {relatedInfo && (
+          <div className="mt-3 pt-2 border-t border-dashed border-gray-300">
+            <h4 className="flex items-center text-xs font-bold text-amber-600 mb-1">
+              <Lightbulb className="w-3 h-3 mr-1" /> 日本史知識の紐付け
+            </h4>
+            <p className="text-xs text-gray-600 pl-4">
+              {relatedInfo}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default function SocialEconomicHistoryApp() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const currentQuestion = QUESTIONS_DATA[currentQuestionIndex];
+
+  const handleOptionSelect = (id) => {
+    if (showResult) return;
+    setSelectedOptionId(id);
+    setShowResult(true);
+  };
+
+  const nextQuestion = () => {
+    setSelectedOptionId(null);
+    setShowResult(false);
+    setCurrentQuestionIndex((prev) => (prev + 1) % QUESTIONS_DATA.length);
+  };
+
+  const prevQuestion = () => {
+    setSelectedOptionId(null);
+    setShowResult(false);
+    setCurrentQuestionIndex((prev) => (prev - 1 + QUESTIONS_DATA.length) % QUESTIONS_DATA.length);
+  };
+
+  const isSelectedCorrect = useMemo(() => {
+    if (!selectedOptionId) return false;
+    const option = currentQuestion.options.find(opt => opt.id === selectedOptionId);
+    return option?.isCorrect;
+  }, [selectedOptionId, currentQuestion]);
+
+  return (
+    <div className="min-h-screen bg-stone-100 p-4 md:p-8 font-sans text-slate-800">
+      <div className="max-w-3xl mx-auto">
+        
+        {/* Header */}
+        <header className="mb-6 flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border-b-4 border-indigo-600">
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold text-indigo-900 flex items-center gap-2">
+              <GraduationCap className="w-8 h-8" />
+              日本史B 社会経済史
+            </h1>
+            <p className="text-sm text-gray-500 mt-1">正誤問題徹底攻略マスター</p>
+          </div>
+          <div className="text-right">
+            <span className="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded">
+              問 {currentQuestionIndex + 1} / {QUESTIONS_DATA.length}
+            </span>
+          </div>
+        </header>
+
+        {/* Question Card */}
+        <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+          <div className="bg-slate-50 p-4 border-b border-gray-200 flex justify-between items-center">
+            <span className="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full border border-amber-200">
+              {currentQuestion.category}
+            </span>
+            <span className="text-xs text-gray-400 font-mono">ID: {currentQuestion.source}</span>
+          </div>
+          
+          <div className="p-6">
+            <h2 className="text-lg font-bold mb-4 text-gray-800 leading-relaxed">
+              {currentQuestion.title}
+            </h2>
+            <p className="mb-6 text-gray-700 leading-7 text-lg">
+              {currentQuestion.questionText}
+            </p>
+            {currentQuestion.subText && (
+               <div className="mb-6 p-4 bg-gray-50 rounded border border-gray-200 text-sm font-serif leading-loose whitespace-pre-line">
+                 {currentQuestion.subText}
+               </div>
+            )}
+
+            {/* Options List */}
+            <div className="space-y-3">
+              {currentQuestion.options.map((option) => {
+                let btnClass = "w-full text-left p-4 rounded-lg border-2 transition-all duration-200 relative ";
+                
+                if (showResult) {
+                  if (option.isCorrect) {
+                    btnClass += "bg-green-50 border-green-500 text-green-900";
+                  } else if (selectedOptionId === option.id) {
+                    btnClass += "bg-red-50 border-red-500 text-red-900";
+                  } else {
+                    btnClass += "bg-gray-50 border-gray-200 text-gray-400 opacity-60";
+                  }
+                } else {
+                  btnClass += "bg-white border-gray-200 hover:border-indigo-400 hover:shadow-md active:bg-indigo-50 text-gray-700";
+                }
+
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionSelect(option.id)}
+                    disabled={showResult}
+                    className={btnClass}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold border ${showResult && option.isCorrect ? 'bg-green-500 text-white border-green-500' : 'bg-gray-100 border-gray-300'}`}>
+                        {['①','②','③','④'][option.id - 1]}
+                      </div>
+                      <span className="font-medium">{option.text}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Feedback Section */}
+        {showResult && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Main Result Banner */}
+            <div className={`p-4 rounded-lg text-center mb-6 shadow-sm border ${isSelectedCorrect ? 'bg-green-100 border-green-300 text-green-800' : 'bg-red-100 border-red-300 text-red-800'}`}>
+              <div className="flex items-center justify-center gap-2 text-xl font-bold">
+                {isSelectedCorrect ? (
+                  <><CheckCircle /> 正解！</>
+                ) : (
+                  <><AlertTriangle /> 不正解...</>
+                )}
+              </div>
+              {!isSelectedCorrect && (
+                <p className="mt-1 text-sm">
+                  正しい答えは <strong>選択肢 {['①','②','③','④'][currentQuestion.options.findIndex(o => o.isCorrect)]}</strong> です。
+                </p>
+              )}
+            </div>
+
+            {/* Detailed Analysis */}
+            <div className="bg-white rounded-xl shadow-lg border border-indigo-100 overflow-hidden mb-8">
+              <div className="bg-indigo-50 p-3 border-b border-indigo-100 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-indigo-600" />
+                <h3 className="font-bold text-indigo-900">詳細解説・誤文訂正</h3>
+              </div>
+              
+              <div className="p-4 md:p-6 bg-white">
+                <p className="text-sm text-gray-500 mb-4">
+                  ※誤った選択肢を「どう直せば正解になるか」を確認しましょう。
+                </p>
+
+                {/* If the question has a special `detailedBreakdown` (like Q16), use that. Otherwise use options array */}
+                {currentQuestion.detailedBreakdown ? (
+                  currentQuestion.detailedBreakdown.map((item, idx) => (
+                    <ExplanationCard
+                      key={idx}
+                      label={item.label}
+                      status={item.status}
+                      text={item.text}
+                      explanation={item.explanation}
+                      correction={item.correction}
+                      relatedInfo={item.relatedInfo}
+                    />
+                  ))
+                ) : (
+                  currentQuestion.options.map((opt) => (
+                    <ExplanationCard
+                      key={opt.id}
+                      label={`選択肢 ${['①','②','③','④'][opt.id - 1]}`}
+                      status={opt.isCorrect ? 'correct' : 'incorrect'}
+                      text={opt.text}
+                      explanation={opt.explanation}
+                      correction={opt.correction}
+                      relatedInfo={opt.relatedInfo}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* Next Button */}
+            <div className="flex justify-between items-center">
+               <button 
+                onClick={prevQuestion}
+                className="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold transition flex items-center gap-2"
+              >
+                <ChevronDown className="rotate-90" /> 前の問題
+              </button>
+              <button 
+                onClick={nextQuestion}
+                className="px-8 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md transition flex items-center gap-2"
+              >
+                次の問題へ <ArrowRight />
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
