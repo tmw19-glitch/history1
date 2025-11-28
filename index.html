@@ -82,50 +82,28 @@
             ChevronDown: () => `
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>`,
+            Refresh: () => `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
                 </svg>`
         };
 
-        // --- 2. データ定義 ---
-        const QUESTIONS_DATA = [
+        // --- 2. データ定義 (全20問) ---
+        const ALL_QUESTIONS_DATA = [
             {
                 id: 1,
                 title: "弥生時代の遺跡・遺物",
                 source: "12 追試",
                 category: "古代",
-                questionText: "弥生時代の遺跡や遺物には戦争とのかかわりを示すものが見られるが，そのことに関して述べた文として正しいものを，次の①～④のうちから一つ選べ。",
+                questionText: "弥生時代の遺跡や遺物には戦争とのかかわりを示すものが見られるが，そのことに関して述べた文として正しいものを一つ選べ。",
                 options: [
-                {
-                    id: 1,
-                    text: "北陸から東北にかけての沿岸部に，朝鮮式山城が築かれた。",
-                    isCorrect: false,
-                    explanation: "朝鮮式山城（大野城・基肄城など）が築かれたのは、弥生時代ではなく飛鳥時代（7世紀後半）です。白村江の戦い（663年）での敗北後、唐・新羅の侵攻に備えて西日本（主に九州北部から瀬戸内海沿岸）に築かれました。",
-                    correction: "「飛鳥時代」に、「西日本（九州北部など）」に築かれた。",
-                    relatedInfo: "【関連知識】弥生時代の防御施設としては、高地性集落（逃げ込み用）が代表的です。"
-                },
-                {
-                    id: 2,
-                    text: "石鏃（せきぞく）は，弥生時代以後，武器として用いられなかった。",
-                    isCorrect: false,
-                    explanation: "石鏃（石の矢じり）は、金属器が伝来した後も、弥生時代を通じて武器として広く使用され続けました。",
-                    correction: "弥生時代を通じて「武器として用いられた」。",
-                    relatedInfo: "【関連知識】金属器（鉄・青銅）は貴重だったため、実用的な道具や武器には依然として石器が使われていました。"
-                },
-                {
-                    id: 3,
-                    text: "周囲に濠（ほり）や土塁をめぐらす集落が現れた。",
-                    isCorrect: true,
-                    explanation: "正しい記述です。戦乱に備え、集落の周囲に深い濠や土塁をめぐらせた「環濠集落」が出現しました。佐賀県の吉野ヶ里遺跡や奈良県の唐古・鍵遺跡が代表例です。",
-                    correction: null, // 正解なので修正なし
-                    relatedInfo: "【重要用語】環濠集落（防御的集落）。これに対し、山頂や丘陵上に築かれた軍事的な集落を「高地性集落」と呼びます（紫雲出山遺跡など）。"
-                },
-                {
-                    id: 4,
-                    text: "銅剣・銅矛・銅戈は，中国や朝鮮では本来，祭器として製作された。",
-                    isCorrect: false,
-                    explanation: "青銅製武器（銅剣・銅矛など）は、中国や朝鮮半島では本来「実用的な武器」として使用されていました。日本に伝来した後、大型化・平薄化して「祭器（祭りの道具）」へと変化しました。",
-                    correction: "中国や朝鮮では本来「実用武器」として製作された（日本で祭器化した）。",
-                    relatedInfo: "【文化の広がり】銅鐸は近畿地方中心、銅剣・銅矛は九州北部中心、銅剣は瀬戸内中心に分布しました。"
-                }
+                    { id: 1, text: "北陸から東北にかけての沿岸部に，朝鮮式山城が築かれた。", isCorrect: false, explanation: "朝鮮式山城は飛鳥時代（白村江の戦い後）に西日本に築かれました。", correction: "「飛鳥時代」に「西日本」に築かれた。", relatedInfo: "弥生時代は高地性集落などが防御施設として作られました。" },
+                    { id: 2, text: "石鏃（せきぞく）は，弥生時代以後，武器として用いられなかった。", isCorrect: false, explanation: "石鏃は金属器伝来後も、弥生時代を通じて武器として使用されました。", correction: "弥生時代を通じて「用いられた」。", relatedInfo: "" },
+                    { id: 3, text: "周囲に濠（ほり）や土塁をめぐらす集落が現れた。", isCorrect: true, explanation: "正しい。戦乱に備えた環濠集落（吉野ヶ里遺跡など）が出現しました。", correction: null, relatedInfo: "【重要】環濠集落＝防御的集落。" },
+                    { id: 4, text: "銅剣・銅矛・銅戈は，本来，祭器として製作された。", isCorrect: false, explanation: "大陸では実用武器でしたが、日本で祭器化しました。", correction: "大陸では「実用武器」だった。", relatedInfo: "" }
                 ]
             },
             {
@@ -133,88 +111,195 @@
                 title: "鎌倉時代の経済",
                 source: "09 追試",
                 category: "中世",
-                questionText: "鎌倉時代の社会や経済の動向について述べた文として正しいものを，次の①～④のうちから一つ選べ。",
+                questionText: "鎌倉時代の社会や経済の動向について述べた文として正しいものを一つ選べ。",
                 options: [
-                {
-                    id: 1,
-                    text: "鎌倉幕府は，貨幣を入手するために元に天龍寺船を送った。",
-                    isCorrect: false,
-                    explanation: "天龍寺船は、室町時代に足利尊氏が後醍醐天皇の冥福を祈る天龍寺の造営費を得るために、元へ派遣した貿易船です。",
-                    correction: "「室町幕府（足利尊氏）」が天龍寺船を送った。",
-                    relatedInfo: "【対比】鎌倉時代の日宋貿易では、平清盛などが宋銭を大量に輸入しました。"
-                },
-                {
-                    id: 2,
-                    text: "遠隔地の取引を決済するために，為替が用いられるようになった。",
-                    isCorrect: true,
-                    explanation: "正しい記述です。銭貨の輸送の手間や盗難のリスクを避けるため、遠隔地間の取引決済に「為替（割符）」が利用されるようになりました。",
-                    correction: null,
-                    relatedInfo: "【重要用語】為替（かわせ）：現金輸送に代わる信用取引手段。問丸などが仲介役を果たしました。"
-                },
-                {
-                    id: 3,
-                    text: "農民は徳政を要求して，しばしば幕府への大規模な実力行使を起こした。",
-                    isCorrect: false,
-                    explanation: "農民が徳政（借金帳消し）を求めて大規模な実力行使（土一揆）を起こしたのは、主に「室町時代」です（例：正長の土一揆）。鎌倉時代の徳政令（永仁の徳政令）は、御家人を救済するためのもので、農民の要求によるものではありません。",
-                    correction: "「室町時代」に、農民は徳政を要求して実力行使（土一揆）を起こした。",
-                    relatedInfo: "【時代区分】鎌倉＝御家人の困窮、室町＝惣村の発達と土一揆。"
-                },
-                {
-                    id: 4,
-                    text: "鎌倉幕府は，しばしば撰銭令を出して貨幣の流通を統制しようとした。",
-                    isCorrect: false,
-                    explanation: "撰銭令（えりぜにれい：悪銭を嫌い良銭を求める行為の禁止）を頻繁に出したのは、「室町幕府」や戦国大名です。",
-                    correction: "「室町幕府」は，しばしば撰銭令を出した。",
-                    relatedInfo: "【貨幣史】室町時代後半には明銭（永楽通宝など）と共に私鋳銭（粗悪な貨幣）が出回り、撰銭が横行しました。"
-                }
+                    { id: 1, text: "鎌倉幕府は，貨幣を入手するために元に天龍寺船を送った。", isCorrect: false, explanation: "天龍寺船は室町幕府（足利尊氏）が派遣しました。", correction: "「室町幕府」が派遣した。", relatedInfo: "鎌倉時代は日宋貿易（平清盛など）が中心。" },
+                    { id: 2, text: "遠隔地の取引を決済するために，為替が用いられるようになった。", isCorrect: true, explanation: "正しい。銭貨輸送のリスク回避のため為替（割符）が普及しました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "農民は徳政を要求して，しばしば幕府への大規模な実力行使を起こした。", isCorrect: false, explanation: "農民による徳政要求（土一揆）は室町時代の特徴です。", correction: "「室町時代」のこと。", relatedInfo: "正長の土一揆などが有名。" },
+                    { id: 4, text: "鎌倉幕府は，しばしば撰銭令を出して貨幣の流通を統制しようとした。", isCorrect: false, explanation: "撰銭令は室町幕府や戦国大名によって出されました。", correction: "「室町幕府」が出した。", relatedInfo: "" }
                 ]
             },
+            {
+                id: 3,
+                title: "律令制下の土地制度",
+                source: "オリジナル",
+                category: "古代",
+                questionText: "奈良時代の土地制度や農業について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "口分田は、6歳以上の男女に班給され、死ねば国に返還された。", isCorrect: false, explanation: "正しい記述です。班田収授法の基本原則です。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "墾田永年私財法により、開墾した土地の永代私有が認められた。", isCorrect: false, explanation: "正しい記述です。743年に出され、これが荘園発生の契機となりました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "条里制によって、耕地が整然と区画された。", isCorrect: false, explanation: "正しい記述です。土地区画制度として実施されました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "全国的に二毛作が普及し、麦が裏作として栽培された。", isCorrect: true, explanation: "誤りです。二毛作が普及し始めるのは「鎌倉時代」以降（畿内・西国中心）です。", correction: "二毛作の普及は「鎌倉時代」以降。", relatedInfo: "【農業史】室町時代に三毛作も見られるようになります。" }
+                ]
+            },
+            {
+                id: 4,
+                title: "室町時代の産業と経済",
+                source: "オリジナル",
+                category: "中世",
+                questionText: "室町時代の産業・経済について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "定期市は、月に3回開かれる三斎市が一般的になった。", isCorrect: false, explanation: "室町時代には、月に6回開かれる「六斎市」が一般的になりました。", correction: "「六斎市」が一般的になった。", relatedInfo: "鎌倉時代は三斎市が中心でした。" },
+                    { id: 2, text: "馬借や車借と呼ばれる運送業者が活躍した。", isCorrect: true, explanation: "正しい。陸上の運送業者として馬借・車借が、水上では問丸などが活躍しました。", correction: null, relatedInfo: "土一揆の主力ともなりました。" },
+                    { id: 3, text: "明銭の輸入が途絶え、国内での貨幣鋳造が本格化した。", isCorrect: false, explanation: "室町時代は日明貿易により「永楽通宝」などの明銭が大量に輸入され流通しました。国内鋳造は行われていません。", correction: "明銭が「大量に輸入」された。", relatedInfo: "私鋳銭（粗悪な銭）も出回りました。" },
+                    { id: 4, text: "座と呼ばれる同業組合が、織田信長によって保護された。", isCorrect: false, explanation: "織田信長は「楽市・楽座」を行い、座の特権を廃止しました。", correction: "信長によって「廃止（解体）」された。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 5,
+                title: "江戸時代の農業技術",
+                source: "オリジナル",
+                category: "近世",
+                questionText: "江戸時代の農業技術の発展について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "深耕に適した備中ぐわが普及した。", isCorrect: false, explanation: "正しい。備中ぐわの使用により土地を深く耕すことが可能になりました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "脱穀用具として千歯こきが発明された。", isCorrect: false, explanation: "正しい。こき箸に比べて能率が飛躍的に向上し、「後家倒し」とも呼ばれました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "商品作物として、四木（桑・漆・茶・楮）三草（麻・紅花・藍）が栽培された。", isCorrect: false, explanation: "正しい。換金作物の栽培が盛んになりました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "金肥として、化学肥料が全国的に使用されるようになった。", isCorrect: true, explanation: "誤りです。江戸時代の金肥（購入肥料）は「干鰯（ほしか）」や「油粕」です。化学肥料の登場は明治以降です。", correction: "金肥は「干鰯」や「油粕」など。", relatedInfo: "【肥料史】自給肥料（刈敷・草木灰）→金肥（干鰯）→化学肥料。" }
+                ]
+            },
+            {
+                id: 6,
+                title: "江戸時代の三貨制度",
+                source: "オリジナル",
+                category: "近世",
+                questionText: "江戸時代の貨幣制度について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "金・銀・銭の三貨が統一的に全国で使用され、交換比率は固定されていた。", isCorrect: false, explanation: "三貨の交換比率は相場により変動しました（変動相場制）。また、東日本は金、西日本は銀遣いという傾向がありました。", correction: "交換比率は「変動」した。", relatedInfo: "両替商が交換業務を行いました。" },
+                    { id: 2, text: "藩札は、幕府が全国の藩に発行を強制した紙幣である。", isCorrect: false, explanation: "藩札は、各藩が領内の通貨不足を補うため、幕府の許可を得て独自に発行したものです。", correction: "各藩が「独自」に発行した。", relatedInfo: "" },
+                    { id: 3, text: "計数貨幣の金・銭と、秤量貨幣の銀が併用された。", isCorrect: true, explanation: "正しい。金（小判）と銭は枚数で数える計数貨幣、銀（丁銀）は重さを量る秤量貨幣でした。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "元禄小判は、慶長小判よりも金の含有率が高められた。", isCorrect: false, explanation: "元禄小判は、財政難補填のため慶長小判より金の含有率を「下げて（改悪）」発行されました（荻原重秀の献策）。", correction: "含有率が「下げられた」。", relatedInfo: "これがインフレ（物価騰貴）を招きました。" }
+                ]
+            },
+            {
+                id: 7,
+                title: "地租改正",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "明治政府が行った地租改正（1873年〜）について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "課税の基準を、収穫高から地価に変更した。", isCorrect: true, explanation: "正しい。豊凶により変動する収穫高基準から、一定の地価基準へ変更し、税収の安定を図りました。", correction: null, relatedInfo: "【三大原則】地価基準、金納、地価の3%。" },
+                    { id: 2, text: "地租の税率は、当初地価の10%とされた。", isCorrect: false, explanation: "当初の税率は「3%」です。後の地租改正反対一揆により2.5%に引き下げられました。", correction: "税率は「3%」。", relatedInfo: "" },
+                    { id: 3, text: "税の納入方法は、米納を原則とした。", isCorrect: false, explanation: "地租改正により、現物納（米）から「金納（現金払い）」に改められました。", correction: "「金納」を原則とした。", relatedInfo: "" },
+                    { id: 4, text: "地券は、江戸時代の名主に交付された。", isCorrect: false, explanation: "地券は、土地の所有者（地主・自作農）に交付され、彼らが納税義務者となりました。", correction: "「土地所有者」に交付された。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 8,
+                title: "松方財政とデフレ",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "1880年代前半の松方財政について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "大蔵卿の松方正義が、インフレーションの収束を目指して緊縮財政を行った。", isCorrect: false, explanation: "正しい記述です。西南戦争後のインフレを鎮静化させました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "日本銀行を設立し、銀本位制に基づく紙幣発行制度を整えた。", isCorrect: false, explanation: "正しい記述です。1882年に日本銀行を設立し、不換紙幣を回収して兌換制度（銀本位）を確立しました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "米価が暴落し、多くの農民が土地を失って小作農へと転落した。", isCorrect: false, explanation: "正しい記述です。深刻なデフレ（松方デフレ）により農村は困窮し、寄生地主制の拡大につながりました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "官営模範工場の払い下げを中止し、国営化を推進した。", isCorrect: true, explanation: "誤りです。松方財政期に「官営工場の払い下げ」に関する法律（官営工場払下概則の廃止→適正化）ができ、政商などへの払い下げが進みました。", correction: "払い下げを「推進」した。", relatedInfo: "富岡製糸場などが後に三井へ払い下げられました。" }
+                ]
+            },
+            {
+                id: 9,
+                title: "明治時代の産業革命（軽工業）",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "明治時代の製糸業と紡績業について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "製糸業は、国内向けの綿花を原料とした。", isCorrect: false, explanation: "製糸業は「蚕の繭（生糸）」を原料とします。綿花は紡績業です。", correction: "製糸業は「生糸（繭）」が原料。", relatedInfo: "【用語注意】製糸（シルク）と紡績（コットン）を区別しましょう。" },
+                    { id: 2, text: "ガラ紡は、欧米から輸入された最新の紡績機械である。", isCorrect: false, explanation: "ガラ紡は、臥雲辰致（がうんたっち）が発明した「国産」の簡易紡績機です。", correction: "「国産」の簡易紡績機。", relatedInfo: "" },
+                    { id: 3, text: "生糸は、明治時代を通じて日本の最大の輸出品であった。", isCorrect: true, explanation: "正しい。生糸は外貨獲得の主力商品で、主にアメリカへ輸出されました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "座繰製糸は、器械製糸よりも生産効率が高かった。", isCorrect: false, explanation: "座繰（ざぐり）は手動、器械製糸は動力です。1894年に器械製糸の生産量が座繰製糸を上回りました。", correction: "器械製糸の方が「効率が高い」。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 10,
+                title: "明治・大正期の重工業",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "日本の重工業の発展について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "官営八幡製鉄所は、日露戦争の賠償金を元手に設立された。", isCorrect: false, explanation: "八幡製鉄所は「日清戦争」の賠償金を一部流用して設立され、1901年に操業開始しました。", correction: "「日清戦争」の賠償金。", relatedInfo: "鉄鉱石は中国の大冶鉄山から輸入しました。" },
+                    { id: 2, text: "日本製鋼所は、民間企業の出資により設立された。", isCorrect: true, explanation: "正しい。北海道炭礦汽船と英国企業（アームストロング社など）の合弁で設立されました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "1900年代には、重化学工業の生産額が軽工業を上回っていた。", isCorrect: false, explanation: "重化学工業が軽工業を上回るのは「1930年代」です。", correction: "上回ったのは「1930年代」。", relatedInfo: "" },
+                    { id: 4, text: "造船業は、第一次世界大戦による不況で大打撃を受けた。", isCorrect: false, explanation: "第一次世界大戦中は「船成金」が出るほどの好況（大戦景気）でした。世界的な船舶不足が背景です。", correction: "大戦景気で「発展」した。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 11,
+                title: "大戦景気と社会",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "第一次世界大戦中の日本経済（大戦景気）について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "ヨーロッパ列強のアジア市場後退により、日本の輸出が急増した。", isCorrect: false, explanation: "正しい記述です。綿製品などをアジア市場へ独占的に輸出しました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "日本は債務国から債権国へと転換した。", isCorrect: false, explanation: "正しい記述です。輸出超過により多額の外貨を得て、債権国となりました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "大戦景気の反動で、戦後恐慌が発生した。", isCorrect: false, explanation: "正しい記述です。1920年に株価暴落により戦後恐慌が起きました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "工業生産額が農業生産額を大きく下回るようになった。", isCorrect: true, explanation: "誤りです。大戦景気の最中（1918年頃）、工業生産額が農業生産額を「上回る」ようになり、工業国化が進みました。", correction: "工業生産額が「上回る」ようになった。", relatedInfo: "【転換点】農業国から工業国へ。" }
+                ]
+            },
+            {
+                id: 12,
+                title: "昭和恐慌",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "1930年頃の昭和恐慌について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "浜口雄幸内閣は、金解禁（金輸出解禁）を断行した。", isCorrect: true, explanation: "正しい。井上準之助蔵相のもと、旧平価での金解禁を行いましたが、世界恐慌と重なり大不況となりました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "アメリカへの生糸輸出が急増し、農村は潤った。", isCorrect: false, explanation: "世界恐慌でアメリカの景気が悪化し、贅沢品である生糸の輸出が激減。農村は「豊作貧乏」など深刻な打撃を受けました。", correction: "輸出が「激減」し困窮した。", relatedInfo: "娘の身売りや欠食児童が社会問題化。" },
+                    { id: 3, text: "重要産業統制法により、カルテルの結成が禁止された。", isCorrect: false, explanation: "不況対策として、逆にカルテル結成を「助長・容認」して産業の合理化を図りました。", correction: "カルテル結成を「助長」した。", relatedInfo: "" },
+                    { id: 4, text: "高橋是清蔵相は、緊縮財政政策をとった。", isCorrect: false, explanation: "犬養毅内閣の高橋是清は、金輸出再禁止を行い、「積極財政（管理通貨制度）」へ転換して景気回復を図りました。", correction: "「積極財政」をとった。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 13,
+                title: "戦時下の経済統制",
+                source: "オリジナル",
+                category: "近現代",
+                questionText: "日中戦争以降の戦時経済統制について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "国家総動員法により、議会の承認なしに勅令で物資や労働力を動員できるようになった。", isCorrect: false, explanation: "正しい記述です。1938年に制定されました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "切符制や配給制が導入され、国民生活は厳しく制限された。", isCorrect: false, explanation: "正しい記述です。砂糖、マッチ、米などが統制されました。", correction: null, relatedInfo: "「贅沢は敵だ」のスローガン。" },
+                    { id: 3, text: "国民徴用令により、多くの一般国民が軍需工場などに動員された。", isCorrect: false, explanation: "正しい記述です。労働力不足を補うため実施されました。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "寄生地主制を強化するため、小作料の引き上げが行われた。", isCorrect: true, explanation: "誤りです。食糧増産確保のため、政府は地主よりも生産者（小作農）を保護する政策（小作料統制令など）をとりました。これは戦後の地主制解体への伏線となります。", correction: "小作料は「統制（引き下げ）」された。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 14,
+                title: "戦後改革と経済復興",
+                source: "オリジナル",
+                category: "現代",
+                questionText: "第二次世界大戦後の経済民主化政策について述べた文として正しいものを一つ選べ。",
+                options: [
+                    { id: 1, text: "農地改革により、不在地主の貸付地はすべて小作人に売り渡された。", isCorrect: true, explanation: "正しい。寄生地主制が解体され、多くの自作農が生まれました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "財閥解体は、GHQの指令ではなく日本政府が自発的に行った。", isCorrect: false, explanation: "GHQの指令により実施されました。持株会社整理委員会などが設置されました。", correction: "「GHQの指令」による。", relatedInfo: "" },
+                    { id: 3, text: "労働組合法により、労働者の団結権が制限された。", isCorrect: false, explanation: "労働組合法は労働者の権利を「保障」するものです。団結権・団体交渉権・争議権。", correction: "団結権が「保障」された。", relatedInfo: "【労働三法】労組法、労調法、労基法。" },
+                    { id: 4, text: "ドッジ＝ラインにより、超インフレが発生した。", isCorrect: false, explanation: "ドッジ＝ラインはインフレ収束のための「超均衡予算（緊縮財政）」です。これによりインフレは収束しましたが、安定恐慌が起きました。", correction: "インフレを「収束」させた。", relatedInfo: "1ドル＝360円の単一為替レート設定。" }
+                ]
+            },
+            {
+                id: 15,
+                title: "高度経済成長",
+                source: "オリジナル",
+                category: "現代",
+                questionText: "1960年代の高度経済成長期について述べた文として誤っているものを一つ選べ。",
+                options: [
+                    { id: 1, text: "池田勇人内閣は、所得倍増計画を掲げた。", isCorrect: false, explanation: "正しい記述です。10年間で国民所得を倍増させる目標を立てました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "エネルギー革命により、主要エネルギーが石炭から石油へ転換した。", isCorrect: false, explanation: "正しい記述です。これにより炭鉱業は衰退しましたが、コンビナートなどが発展しました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "三種の神器（カラーテレビ・クーラー・自動車）が普及した。", isCorrect: true, explanation: "誤りです。三種の神器は「白黒テレビ・洗濯機・冷蔵庫」（1950年代後半）。カラーテレビ・クーラー・自動車（3C）は「新・三種の神器」（1960年代後半）です。", correction: "それは「新・三種の神器」。", relatedInfo: "" },
+                    { id: 4, text: "東海道新幹線が開通し、オリンピック東京大会が開催された。", isCorrect: false, explanation: "正しい記述です。1964年のことです。", correction: null, relatedInfo: "OECDへの加盟もこの年です。" }
+                ]
+            },
+            // --- ここからは既存の問題（IDを連番に変更） ---
             {
                 id: 16,
                 title: "綿糸の生産と輸出入（明治時代）",
                 source: "10 追試",
                 category: "近現代",
-                questionText: "紡績業に関して述べた文a～dについて，正しいものの組合せを選べ。",
-                subText: "a: 松方財政の開始以前から，綿糸の生産高が輸入高を上回っていた。\nb: 日清戦争ののち数年間，戦争以前に比べて綿糸の輸出高が急増した。\nc: 日露戦争ののち，綿糸の生産高は増加傾向にあった。\nd: 関税自主権の完全回復にともない，綿糸の輸出高が輸入高を上回るようになった。",
+                questionText: "【グラフ読み取り】紡績業に関して述べた文として正しい組合せを選べ。\na: 松方財政以前から，綿糸生産は輸入を上回っていた。\nb: 日清戦争後，綿糸輸出が急増した。\nc: 日露戦争後，綿糸生産は増加傾向にあった。\nd: 関税自主権回復に伴い，綿糸輸出が輸入を上回るようになった。",
                 options: [
-                { id: 1, text: "a・c", isCorrect: false, explanation: "aが誤りです。", correction: "解説を参照", relatedInfo: "" },
-                { id: 2, text: "a・d", isCorrect: false, explanation: "両方誤りです。", correction: "解説を参照", relatedInfo: "" },
-                { id: 3, text: "b・c", isCorrect: true, explanation: "bとcが正しい記述です。", correction: null, relatedInfo: "" },
-                { id: 4, text: "b・d", isCorrect: false, explanation: "dが誤りです。", correction: "解説を参照", relatedInfo: "" }
-                ],
-                detailedBreakdown: [
-                {
-                    label: "文 a",
-                    status: "incorrect",
-                    text: "松方財政の開始以前から，綿糸の生産高が輸入高を上回っていた。",
-                    explanation: "松方財政以前（1880年代初頭）は、まだ機械制紡績が未発達で、輸入綿糸が国内生産を圧倒していました。",
-                    correction: "松方財政以前は「輸入高が生産高を上回っていた」。生産が輸入を上回るのは1890年です。",
-                    relatedInfo: "1883年の大阪紡績会社の開業が転機となり、1890年に生産量が輸入量を上回りました。"
-                },
-                {
-                    label: "文 b",
-                    status: "correct",
-                    text: "日清戦争ののち数年間，戦争以前に比べて綿糸の輸出高が急増した。",
-                    explanation: "日清戦争（1894-95）後、中国（清）市場への輸出が拡大し、輸出高が急増しました。1897年には輸出が輸入を上回っています。",
-                    correction: null,
-                    relatedInfo: "【産業革命】紡績業は日本の産業革命の最初の牽引役です（第1次産業革命＝軽工業）。"
-                },
-                {
-                    label: "文 c",
-                    status: "correct",
-                    text: "日露戦争ののち，綿糸の生産高は増加傾向にあった。",
-                    explanation: "日露戦争（1904-05）後も、紡績業は成長を続け、生産高は増加傾向にありました。",
-                    correction: null,
-                    relatedInfo: ""
-                },
-                {
-                    label: "文 d",
-                    status: "incorrect",
-                    text: "関税自主権の完全回復にともない，綿糸の輸出高が輸入高を上回るようになった。",
-                    explanation: "綿糸の輸出が輸入を上回ったのは「1897年」です。関税自主権の完全回復（1911年・小村寿太郎）よりもずっと前です。",
-                    correction: "関税自主権回復より「以前（1897年頃）」に輸出が輸入を上回った。",
-                    relatedInfo: "【年代暗記】1890年：生産＞輸入、1897年：輸出＞輸入。"
-                }
+                    { id: 1, text: "a・c", isCorrect: false, explanation: "aが誤り。", correction: "a:生産＞輸入は1890年。", relatedInfo: "" },
+                    { id: 2, text: "a・d", isCorrect: false, explanation: "aとdが誤り。", correction: "d:輸出＞輸入は1897年。", relatedInfo: "" },
+                    { id: 3, text: "b・c", isCorrect: true, explanation: "正しい。日清戦争後に輸出急増、日露後も生産増加。", correction: null, relatedInfo: "1890年：生産＞輸入、1897年：輸出＞輸入。" },
+                    { id: 4, text: "b・d", isCorrect: false, explanation: "dが誤り。", correction: "d:関税自主権回復(1911)より前。", relatedInfo: "" }
                 ]
             },
             {
@@ -224,38 +309,49 @@
                 category: "近現代",
                 questionText: "第一次世界大戦による好景気に関連して，1910年代の工業について述べた文として正しいものを選べ。",
                 options: [
-                {
-                    id: 1,
-                    text: "猪苗代水力発電所から東京への長距離送電が成功した。",
-                    isCorrect: true,
-                    explanation: "正しい記述です。1914年（大正3年）に猪苗代水力発電所が完成し、東京への長距離高圧送電が成功しました。これが動力革命（蒸気力から電力へ）を加速させました。",
-                    correction: null,
-                    relatedInfo: "【動力革命】大戦景気期に原動機における電動機の比率が蒸気機関を上回りました。"
-                },
-                {
-                    id: 2,
-                    text: "重化学工業の生産額が，軽工業の生産額を上回った。",
-                    isCorrect: false,
-                    explanation: "重化学工業の生産額が軽工業を上回るのは、1930年代（昭和初期）の軍需産業化が進んでからです。1910年代はまだ繊維工業などの軽工業が中心でした。",
-                    correction: "「1930年代（昭和初期）」に入ってから上回った。",
-                    relatedInfo: "【産業構造の変化】1910年代は「工業生産額が農業生産額を上回った（1918年頃）」時期です。"
-                },
-                {
-                    id: 3,
-                    text: "官営八幡製鉄所が設立され，操業を開始した。",
-                    isCorrect: false,
-                    explanation: "官営八幡製鉄所の操業開始は「1901年」です。1910年代ではありません。日清戦争の賠償金を元手に設立されました。",
-                    correction: "「1901年（明治30年代）」に操業を開始した。",
-                    relatedInfo: "【鉄鋼業】1910年代の大戦景気では、民間の製鉄所なども発展しましたが、八幡製鉄所の開始はそれ以前です。"
-                },
-                {
-                    id: 4,
-                    text: "綿糸の生産高が輸入高を初めて上回った。",
-                    isCorrect: false,
-                    explanation: "綿糸の生産高が輸入高を上回ったのは「1890年」です。1910年代はすでに世界有数の綿糸輸出国となっていました。",
-                    correction: "「1890年（明治中期）」に上回った。",
-                    relatedInfo: "【綿業の推移】1910年代は、第一次世界大戦によりヨーロッパ列強がアジア市場から後退したため、日本が輸出を独占的に拡大した時期です。"
-                }
+                    { id: 1, text: "猪苗代水力発電所から東京への長距離送電が成功した。", isCorrect: true, explanation: "正しい。1914年の成功により動力革命が進展しました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "重化学工業の生産額が，軽工業の生産額を上回った。", isCorrect: false, explanation: "重化学＞軽工業は1930年代です。", correction: "「1930年代」のこと。", relatedInfo: "1910年代は工業＞農業。" },
+                    { id: 3, text: "官営八幡製鉄所が設立され，操業を開始した。", isCorrect: false, explanation: "操業開始は1901年です。", correction: "「1901年」に開始。", relatedInfo: "" },
+                    { id: 4, text: "綿糸の生産高が輸入高を初めて上回った。", isCorrect: false, explanation: "1890年の出来事です。", correction: "「1890年」に上回った。", relatedInfo: "" }
+                ]
+            },
+            {
+                id: 18,
+                title: "楽市・楽座",
+                source: "オリジナル",
+                category: "中世",
+                questionText: "織田信長が実施した楽市・楽座などの経済政策について述べた文として誤っているものを選べ。",
+                options: [
+                    { id: 1, text: "座を解体し、商人の自由な営業を認めた。", isCorrect: false, explanation: "正しい。既得権益を持つ座を排除しました。", correction: null, relatedInfo: "" },
+                    { id: 2, text: "関所を撤廃し、物資の流通をスムーズにした。", isCorrect: false, explanation: "正しい。関銭の徴収をなくし流通を活性化させました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "撰銭令を出し、良銭と悪銭の交換比率を定めた。", isCorrect: false, explanation: "正しい。信長も撰銭令を出しています。", correction: null, relatedInfo: "" },
+                    { id: 4, text: "全国の土地を調査し、石高制を確立した。", isCorrect: true, explanation: "誤りです。石高制を確立した太閤検地を行ったのは「豊臣秀吉」です。", correction: "「豊臣秀吉」が行った。", relatedInfo: "信長は指出検地を行いました。" }
+                ]
+            },
+            {
+                id: 19,
+                title: "荘園公領制",
+                source: "オリジナル",
+                category: "中世",
+                questionText: "平安時代から中世にかけての荘園について述べた文として正しいものを選べ。",
+                options: [
+                    { id: 1, text: "荘園領主は、不輸・不入の権を得て、国司の干渉を排除しようとした。", isCorrect: true, explanation: "正しい。免税特権（不輸）と検田使立ち入り拒否（不入）を得て自立しました。", correction: null, relatedInfo: "寄進地系荘園の発展。" },
+                    { id: 2, text: "名主（みょうしゅ）は、耕作を行わず、荘園の管理のみを行った。", isCorrect: false, explanation: "名主は有力農民であり、下人などを使って耕作経営を行いました。", correction: "耕作経営も行った。", relatedInfo: "" },
+                    { id: 3, text: "地頭は、荘園領主から任命され、年貢の徴収を請け負った。", isCorrect: false, explanation: "地頭は「幕府」によって任命されました。", correction: "「幕府」が任命した。", relatedInfo: "承久の乱後、新補地頭が増加。" },
+                    { id: 4, text: "惣村は、荘園領主によって組織された農民の団体である。", isCorrect: false, explanation: "惣村は、農民が自衛・自治のために「自発的」に結合した組織です。", correction: "農民が「自発的」に組織した。", relatedInfo: "寄合を開き、惣掟を定めました。" }
+                ]
+            },
+            {
+                id: 20,
+                title: "バブル経済と崩壊",
+                source: "オリジナル",
+                category: "現代",
+                questionText: "1980年代後半からのバブル経済とその崩壊について述べた文として正しいものを選べ。",
+                options: [
+                    { id: 1, text: "プラザ合意により、急激な円安が進行した。", isCorrect: false, explanation: "1985年のプラザ合意により、急激な「円高」が進行しました。", correction: "急激な「円高」が進行。", relatedInfo: "円高不況対策の低金利がバブルの一因。" },
+                    { id: 2, text: "地価や株価が投機的に高騰した。", isCorrect: true, explanation: "正しい。実体経済とかけ離れて資産価格が高騰しました。", correction: null, relatedInfo: "" },
+                    { id: 3, text: "消費税が初めて導入されたのは、バブル崩壊後のことである。", isCorrect: false, explanation: "消費税（3%）導入は1989年（竹下登内閣）で、バブル絶頂期です。", correction: "バブル期の「1989年」に導入。", relatedInfo: "" },
+                    { id: 4, text: "金融機関の不良債権問題は、速やかに解決された。", isCorrect: false, explanation: "バブル崩壊後、巨額の不良債権処理が長引き、「失われた10年（20年）」の原因となりました。", correction: "処理が「長引いた」。", relatedInfo: "山一證券の破綻など。" }
                 ]
             }
         ];
@@ -264,10 +360,21 @@
         let state = {
             currentIndex: 0,
             selectedOptionId: null,
-            showResult: false
+            showResult: false,
+            quizQuestions: [] // ランダムに選ばれた5問を格納
         };
 
-        // --- 4. ヘルパー関数: Explanation CardのHTML生成 ---
+        // --- 4. ヘルパー関数 ---
+
+        // ランダムに5問選ぶ関数
+        function selectRandomQuestions() {
+            // 配列のコピーを作成してシャッフル
+            const shuffled = [...ALL_QUESTIONS_DATA].sort(() => 0.5 - Math.random());
+            // 先頭5つを取得
+            return shuffled.slice(0, 5);
+        }
+
+        // Explanation CardのHTML生成
         function createExplanationCardHTML(props) {
             const isCorrect = props.status === 'correct';
             const icon = isCorrect ? Icons.CheckCircle() : Icons.XCircle();
@@ -328,7 +435,7 @@
         // --- 5. メインレンダリング関数 ---
         function render() {
             const app = document.getElementById('app');
-            const currentQuestion = QUESTIONS_DATA[state.currentIndex];
+            const currentQuestion = state.quizQuestions[state.currentIndex];
             
             // 現在の選択が正解かどうか判定
             let isSelectedCorrect = false;
@@ -353,7 +460,7 @@
                     </div>
                     <div class="text-right">
                         <span class="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded">
-                            問 ${state.currentIndex + 1} / ${QUESTIONS_DATA.length}
+                            問 ${state.currentIndex + 1} / ${state.quizQuestions.length}
                         </span>
                     </div>
                 </header>
@@ -476,23 +583,35 @@
                         </div>
 
                         <!-- Navigation Buttons -->
-                        <div class="flex justify-between items-center pb-8">
-                            <button onclick="prevQuestion()" class="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold transition flex items-center gap-2">
+                        <div class="flex justify-between items-center pb-8 gap-4">
+                            <button onclick="prevQuestion()" class="flex-1 px-4 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold transition flex items-center justify-center gap-2" ${state.currentIndex === 0 ? 'disabled style="opacity:0.5"' : ''}>
                                 <div class="w-4 h-4 rotate-90">${Icons.ChevronDown()}</div> 前の問題
                             </button>
-                            <button onclick="nextQuestion()" class="px-8 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md transition flex items-center gap-2">
+                `;
+                
+                // 最後の問題かどうかでボタンを変える
+                if (state.currentIndex < state.quizQuestions.length - 1) {
+                    html += `
+                            <button onclick="nextQuestion()" class="flex-1 px-4 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md transition flex items-center justify-center gap-2">
                                 次の問題へ <div class="w-4 h-4">${Icons.ArrowRight()}</div>
                             </button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
+                } else {
+                     html += `
+                            <button onclick="resetQuiz()" class="flex-1 px-4 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold shadow-md transition flex items-center justify-center gap-2">
+                                <div class="w-4 h-4">${Icons.Refresh()}</div> 新しい問題に挑戦
+                            </button>
+                        </div>
+                    </div>`;
+                }
             }
 
             // HTMLをDOMに注入
             app.innerHTML = html;
         }
 
-        // --- 6. イベントハンドラ (グローバルスコープに公開) ---
+        // --- 6. イベントハンドラ ---
         window.handleOptionSelect = (id) => {
             if (state.showResult) return;
             state.selectedOptionId = id;
@@ -503,21 +622,33 @@
         window.nextQuestion = () => {
             state.selectedOptionId = null;
             state.showResult = false;
-            state.currentIndex = (state.currentIndex + 1) % QUESTIONS_DATA.length;
+            state.currentIndex = (state.currentIndex + 1);
             render();
-            // ページトップへスクロール
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
         window.prevQuestion = () => {
-            state.selectedOptionId = null;
-            state.showResult = false;
-            state.currentIndex = (state.currentIndex - 1 + QUESTIONS_DATA.length) % QUESTIONS_DATA.length;
-            render();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(state.currentIndex > 0) {
+                state.selectedOptionId = null; // 戻ったときに回答状態をリセットするかは仕様によるが、今回はリセット
+                state.showResult = false;
+                state.currentIndex = (state.currentIndex - 1);
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         };
 
+        window.resetQuiz = () => {
+            state.currentIndex = 0;
+            state.selectedOptionId = null;
+            state.showResult = false;
+            state.quizQuestions = selectRandomQuestions();
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // --- 7. アプリケーション開始 ---
+        // 初回ロード時にランダムに問題を選択
+        state.quizQuestions = selectRandomQuestions();
         render();
 
     </script>
